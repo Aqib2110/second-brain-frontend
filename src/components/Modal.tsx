@@ -1,4 +1,4 @@
-import React, { useRef,useState } from 'react'
+import  { useRef,useState } from 'react'
 import Croos from '../icons/Croos'
 import toast from "react-hot-toast";
 import { Button } from './Button';

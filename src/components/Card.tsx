@@ -1,14 +1,10 @@
-import React from 'react'
 import Share from '../icons/Share'
 import Delete from '../icons/Delete'
-import { sizeVariant } from '../icons/Icon'
-import { useNavigate } from 'react-router-dom'
-import { IconProps } from '../icons/Icon'
 import toast from "react-hot-toast";
 import Twitter from '../icons/Twitter'
 import Youtube from '../icons/Youtube'
 import Document from '../icons/Document'
-import { useState } from 'react'
+
 interface CardProps{
   id:string,
   setdel:(n:boolean)=>void,
@@ -17,7 +13,7 @@ Cardtype:"youtube" | "twitter" | "notes",
 link:string
 }
 const Card = (props:CardProps) => {
-  const navigate = useNavigate();
+ 
   const token:any = localStorage.getItem('token');
   const parsetoken = JSON.parse(token);
   const handleDelete = (id:any)=>{

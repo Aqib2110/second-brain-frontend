@@ -1,4 +1,3 @@
-import React from 'react'
 import Twitter from '../icons/Twitter'
 import Youtube from '../icons/Youtube'
 import Document from '../icons/Document'

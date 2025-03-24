@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconProps } from './Icon'
 import { sizeVariant } from './Icon'
 const PlusIcons = (props:IconProps) => {
