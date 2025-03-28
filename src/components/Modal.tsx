@@ -5,7 +5,7 @@ import { Button } from './Button';
 interface modelInter {
     open: boolean,
     setOpen: (n:boolean) => void,
-    text:string,
+    text?:string,
     ref:any
 
 }
@@ -46,7 +46,51 @@ toast.success("content added successfully");
     }
 })
     }
-   
+
+    const handleCreate = ()=>{
+        const token:any = localStorage.getItem('token');
+        const parsetoken = JSON.parse(token);
+        setloading(true);
+      fetch('http://localhost:3000/api/v1/brain/share',{
+      method:"POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${parsetoken}`,
+          },
+          body:JSON.stringify({
+            share:"true",
+          })}).then(res=>res.json()).then(data=>{
+            console.log(data);
+            if(data.data)
+            {
+
+              console.log(data);
+      const link = 'http://localhost:5173/brain/share/:' + data.data.hash;                          
+     props.ref.current.value = link;
+     setloading(false);
+      toast.success(data.message);
+      }})
+    }
+
+   const handleDelete  = ()=>{
+    const token:any = localStorage.getItem('token');
+    const parsetoken = JSON.parse(token);
+   fetch('http://localhost:3000/api/v1/brain/share',{
+    method:"DELETE",
+    headers:{
+    'Content-Type':"application/json",
+    'Authorization': `Bearer ${parsetoken}`,
+    },
+    body:JSON.stringify({share:"false"})
+   }).then(res=>res.json()).then(data=>{
+    if(data.message){
+        props.ref.current.value = "";
+        props.setOpen(false);
+        toast.success("Sharable Link Deleted Successfully");
+    }
+   })
+   }
+
         const handleCopy = () => {
             if (props.ref.current.value) {
                 props.setOpen(false);
@@ -63,9 +107,8 @@ toast.success("content added successfully");
   return (
     <div>
     
-   {props.open && <div className='h-screen w-screen  flex justify-center items-center bg-black opacity-70 fixed top-0 left-0'>
-
-<div className='md:w-1/3 w-3/4 h-2/4 opacity-100 flex flex-col justify-center items-center  z-50 rounded-md bg-white relative'>
+   {props.open && <div className='h-screen w-screen  flex justify-center  items-center bg-black  opacity-70 fixed top-0 left-0'>
+<div className='md:w-1/3 w-4/5 h-5/8  flex flex-col justify-center items-center  z-50 rounded-md bg-white relative'>
 <span className='absolute top-2 right-2 cursor-pointer' onClick={()=>{props.setOpen(false)}}>
 <Croos size='md'/>
 </span>
@@ -79,8 +122,10 @@ toast.success("content added successfully");
 {
     props.text == "share" && <div className='w-3/4 h-4/5 flex text-black flex-col gap-6 pt-5 '>
     <input type="text" ref={props.ref} className='rounded-md text-black w-full px-3 py-4 border-2' readOnly/>
-  
+    <Button size='md' variant='primary' disable={loading}   text={loading ? "creating..." :"create"} onClick={handleCreate} />
     <Button size='md' variant='primary' text='copy' onClick={handleCopy} />
+    <Button size='md' variant='primary' text='delete' onClick={handleDelete} />
+
     </div>
 }
 </div>

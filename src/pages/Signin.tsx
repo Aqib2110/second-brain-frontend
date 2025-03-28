@@ -44,7 +44,7 @@ else{
   return (
     <div className='bg-gray-600 flex flex-col justify-center items-center h-screen w-screen'>
       <h1 className='font-bold pb-3 text-white text-3xl'>Sign in</h1>
-      <div className='bg-white rounded-md  justify-center  flex flex-col px-15 gap-4 w-1/3 h-2/4'>
+      <div className='bg-white rounded-md  justify-center  flex flex-col px-15 gap-4 w-4/5 md:w-1/3 h-2/4'>
      
    
       <label htmlFor="" className='flex flex-col gap-2 w-full justify-center  '> Username 

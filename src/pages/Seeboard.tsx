@@ -1,22 +1,19 @@
 import { useState,useEffect, useRef } from 'react'
 import Modal from '../components/Modal';
-import Card from '../components/Card';
+import ShowCard from '../components/ShowCard';
 import { Button } from '../components/Button';
 import Sidebar from '../components/Sidebar';
 import Share from '../icons/Share';
 import PlusIcons from '../icons/PlusIcons';
-import { useNavigate } from 'react-router-dom';
+import toast from "react-hot-toast";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useId } from 'react';
-function Dashboard() {
-  const id = useId();
- const navigate = useNavigate();
-  const [data, setdata] = useState<{title: string;link:string }[]>([]);
-  const [del, setdel] = useState(false);
+import { useParams } from 'react-router-dom';
+function Seeboard() {
+  const {shareLink} = useParams();
+  const [data, setdata] = useState<{ _id: string; title: string;link:string }[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [nav, setnav] = useState<boolean>(false);
 const inputref3 = useRef<any>('');
-const [text, settext] = useState('');
 const getCardType = (link: string) => {
   if (link?.includes("https://youtu.be")) return "youtube";
   if (link?.includes("https://X")) return "twitter";
@@ -26,36 +23,33 @@ const getCardType = (link: string) => {
 };
 function fetchData()
 {
-  const token:any = localStorage.getItem('token');
-  const parsetoken = JSON.parse(token);
-  if(!parsetoken){
-    navigate('/signup');
-  }
-  else{
-    fetch('http://localhost:3000/api/v1/content',{
+    fetch(`http://localhost:3000/api/v1/brain/:${shareLink}`,{
       headers: {
-        'Authorization': `Bearer ${parsetoken}`,
+        // 'Authorization': `Bearer ${parsetoken}`,
         'Content-Type': 'application/json'
       }
     }).then(res=>res.json()).then(data=>{
-      setdata(data.content);
+      if(data.data){
+        setdata(data.data);
+      }
+     
+      console.log(data);
     }).catch(error=>{
       console.log(error);
     });
-  }
+  
 }
+
 useEffect((): void => {
 fetchData();
-  }, [del,open]);
+  }, []);
   
 
 const handleClick = (): void => {
- setOpen(true);
- settext('content');
+  toast.success("sorry, You don't have access ");
 }
 const handleShare = ()=>{
-  setOpen(true);
-  settext('share');
+  toast.success("sorry, You don't have access ");
 }
 const handlenav = ()=>{
   setnav(true);
@@ -66,7 +60,7 @@ const handlenav = ()=>{
 <div className='bg-[#FFFFFF] hidden md:block  h-[100vh] w-1/5 border border-gray-300'>
   <Sidebar />
 </div>
-<div className='bg-[#FFFFFF] block md:hidden  w-4/5 md:w-[350px]  z-10 h-[100vh] fixed top-0 left-0  border border-gray-300'
+<div className='bg-[#FFFFFF] block md:hidden sm:w-2/5 z-10 h-[100vh] fixed top-0 left-0 w-[350px]  border border-gray-300'
 style={{
   display:`${nav ? "block" : "none"}`
 }}
@@ -86,31 +80,24 @@ style={{
  <Button variant={"primary"} size={"md"} startIcon={<PlusIcons size='md'/>} text={"Add Content"}  onClick={handleClick}/>
 
 
-  </div>
-  <div className='flex  flex-col md:hidden  gap-2'>
-    
-    <Button variant={"secondary"}  size={"sm"} startIcon={<Share size={"md"}/>}  text={"Share Brain"}  onClick={handleShare}/>
-   
-
+</div>
+<div className='flex  flex-col md:hidden  gap-2'> 
+<Button variant={"secondary"}  size={"sm"} startIcon={<Share size={"md"}/>}  text={"Share Brain"}  onClick={handleShare}/>
 <Button variant={"primary"} size={"sm"} startIcon={<PlusIcons size='md'/>} text={"Add Content"}  onClick={handleClick}/>
-
-
 </div>
     </div>
 </div>
 <div  className=' flex  w-[100%] pt-5 md:pt-2 flex-wrap gap-5 px-4 md:px-9'>
 <h1 className='font-bold text-2xl w-full block md:hidden'>All Notes</h1>
-
-{data.map(({title,link }) => {
-  return <Card id={id} title={title} setdel={setdel} Cardtype={getCardType(link)} link={link}/>
+{ data?.length == 0 ? <div className='w-full flex justify-center'><p>No Data Found</p></div> : data?.map(({_id,title,link}) => {
+  return <ShowCard id={_id}  title={title} Cardtype={getCardType(link)} link={link} />
 })}
 </div>
 </div>
-
-  <Modal open={open} ref={inputref3} setOpen={setOpen} text={text}/>
+  <Modal open={open} ref={inputref3} setOpen={setOpen}/>
 </div>
    
   )
 }
 
-export default Dashboard
+export default Seeboard
