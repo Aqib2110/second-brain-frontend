@@ -23,7 +23,7 @@ const getCardType = (link: string) => {
 };
 function fetchData()
 {
-    fetch(`http://localhost:3000/api/v1/brain/:${shareLink}`,{
+    fetch(`https://second-brain-backend-zzh3.vercel.app/api/v1/brain/:${shareLink}`,{
       headers: {
         // 'Authorization': `Bearer ${parsetoken}`,
         'Content-Type': 'application/json'
