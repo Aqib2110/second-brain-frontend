@@ -24,7 +24,7 @@ const link = inputref2.current.value;
             title:title,
             link:link
         }
-fetch('http://localhost:3000/api/v1/content',{
+fetch('https://second-brain-backend-zzh3.vercel.app/api/v1/content',{
     method:"POST",
     headers:{
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ toast.success("content added successfully");
         const token:any = localStorage.getItem('token');
         const parsetoken = JSON.parse(token);
         setloading(true);
-      fetch('http://localhost:3000/api/v1/brain/share',{
+      fetch('https://second-brain-backend-zzh3.vercel.app/api/v1/brain/share',{
       method:"POST",
         headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ toast.success("content added successfully");
             {
 
               console.log(data);
-      const link = 'http://localhost:5173/brain/share/:' + data.data.hash;                          
+      const link = 'https://second-brain-backend-zzh3.vercel.app/brain/share/:' + data.data.hash;                          
      props.ref.current.value = link;
      setloading(false);
       toast.success(data.message);
@@ -75,7 +75,7 @@ toast.success("content added successfully");
    const handleDelete  = ()=>{
     const token:any = localStorage.getItem('token');
     const parsetoken = JSON.parse(token);
-   fetch('http://localhost:3000/api/v1/brain/share',{
+   fetch('https://second-brain-backend-zzh3.vercel.app/api/v1/brain/share',{
     method:"DELETE",
     headers:{
     'Content-Type':"application/json",
