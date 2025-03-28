@@ -32,7 +32,7 @@ function fetchData()
     navigate('/signup');
   }
   else{
-    fetch('http://localhost:3000/api/v1/content',{
+    fetch('https://second-brain-backend-zzh3.vercel.app/api/v1/content',{
       headers: {
         'Authorization': `Bearer ${parsetoken}`,
         'Content-Type': 'application/json'
