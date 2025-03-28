@@ -19,7 +19,7 @@ const signupobj:signupprops = {
   username:val1,
   password:val2
 }
-    const data = await fetch('http://localhost:3000/api/v1/signin',{
+    const data = await fetch('https://second-brain-backend-zzh3.vercel.app/api/v1/signin',{
       method:"POST",
       headers: {
         'Content-Type': 'application/json'
