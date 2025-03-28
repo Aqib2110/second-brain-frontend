@@ -21,7 +21,7 @@ const Card = (props:CardProps) => {
     const contentid = {
       _id:id
     }
-fetch('http://localhost:3000/api/v1/content',{
+fetch('https://second-brain-backend-zzh3.vercel.app/api/v1/content',{
   method:"DELETE",
   headers: {
     'Authorization': `Bearer ${parsetoken}`,
