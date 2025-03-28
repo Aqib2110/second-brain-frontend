@@ -65,7 +65,7 @@ toast.success("content added successfully");
             {
 
               console.log(data);
-      const link = 'https://second-brain-backend-zzh3.vercel.app/brain/share/:' + data.data.hash;                          
+      const link = 'https://second-brain-frontend-tau.vercel.app/brain/share/:' + data.data.hash;                          
      props.ref.current.value = link;
      setloading(false);
       toast.success(data.message);
