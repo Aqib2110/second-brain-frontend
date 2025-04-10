@@ -15,6 +15,12 @@ const Signup = () => {
     setloading(true);
     const val1 = inputref1.current.value;
     const val2 = inputref2.current.value;
+      if(val1 === '' || val2 === '')
+    {
+      setloading(false);
+      toast(<div className='text-red-500'>Please fill all the fields</div>);
+      return;
+    }
 const signupobj:signupprops = {
   username:val1,
   password:val2
