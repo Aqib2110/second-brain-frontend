@@ -64,6 +64,8 @@ else{
       
   
     <Button size='md'  text={loading ? "signing up..." :"sign up"} disable={loading} variant='primary' onClick={handleSignup}/>
+            <p>Already have an account ? <a className='text-blue-900 underline' href="/signin">Login</a></p>
+
       </div>
     
  
