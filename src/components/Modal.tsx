@@ -20,6 +20,11 @@ const inputref2 = useRef<any>('');
         setloading(true);
 const title = inputref1.current.value;
 const link = inputref2.current.value;
+        if(title == '' || link == ''){
+  setloading(false);
+  toast(<div className='text-red-500'>please fill both content and link</div>);
+  return;
+}
         const inputobj = {
             title:title,
             link:link
